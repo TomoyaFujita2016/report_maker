@@ -12,7 +12,7 @@
 
       </v-col>
       <v-col cols="4">
-          Total: {{min2hour(time_total)}} → <span class="font-weight-black"> {{min2hour(time_total + time_subtotal)}}</span>
+          Total: <span @click="openTotalEditor()">{{min2hour(time_total)}}</span> → <span class="font-weight-black"> {{min2hour(time_total + time_subtotal)}}</span>
       <v-btn @click="dialog=true" icon>
         <v-icon color="purple">mdi-trash-can-outline</v-icon>
       </v-btn>
@@ -75,6 +75,7 @@
         </v-btn>
       </template>
     </v-snackbar>
+    <TotalEditor ref="tedlg"/>
     <v-dialog
       v-model="dialog"
       persistent
@@ -116,6 +117,7 @@
     name: 'Dashboard',
     components: {
         TimeSlider: () => import('@/components/base/TimeSlider.vue'),
+        TotalEditor: () => import('@/components/base/TotalEditor.vue'),
     },
 
     data: () => ({
@@ -226,7 +228,10 @@
             var hour = Math.floor(time / 60);
             var min = time % 60;
             return hour + "h " + min +"m"
-        }
+        },
+        openTotalEditor(){
+            this.$refs.tedlg.isDisplay = true
+        },
     },
   }
 </script>

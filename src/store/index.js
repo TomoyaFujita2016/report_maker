@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     text: {"next": "", "done": "", "output": ""},
     time: {"am": [], "pm": [], "total": 0, "subtotal": 0},
+    daily: [],
   },
   mutations: {
     updateTextDone (state, text) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     updateTimePM (state, time) {
         Vue.set(state.time, "pm", time)
+    },
+    addDaily(state, daily) {
+        state.daily.push(daily)
     },
     resetTimeAMPM (state) {
         Vue.set(state.time, "am", [])
@@ -44,8 +48,8 @@ export default new Vuex.Store({
   plugins: [createPersistedState(
     {
       key: 'report_app',
-
       paths: [
+        'daily',
         'text',
         'time.am',
         'time.pm',
